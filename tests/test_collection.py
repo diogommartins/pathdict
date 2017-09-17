@@ -8,7 +8,6 @@ class PathDictTests(unittest.TestCase):
             'dogs': {
                 'male': 'Xablau',
                 'female': 'Xena',
-                '42': 'The answer',
                 'nested_list': ['0', '1', '2']
             },
             'enterprises': ['B2W', 'Sieve'],
@@ -26,8 +25,8 @@ class PathDictTests(unittest.TestCase):
         self.assertEqual(self.path_dict['dogs.male'], 'Xablau')
         self.assertEqual(self.path_dict['dogs.female'], 'Xena')
 
-        self.assertEqual(self.path_dict['dogs.42'], 'The answer')
-        self.assertEqual(self.path_dict['dogs.nested_list.2'], "2")
+    def test_it_access_nested_lists_inside_nested_dicts_by_path(self):
+        self.assertEqual(self.path_dict['dogs.nested_list.2'], '2')
 
     def test_it_access_nested_list_by_path(self):
         self.assertEqual(self.path_dict['enterprises.0'], 'B2W')
@@ -40,7 +39,8 @@ class PathDictTests(unittest.TestCase):
         self.assertEqual(self.path_dict, {
             'dogs': {
                 'male': 'XxXablau',
-                'female': 'Xena'
+                'female': 'Xena',
+                'nested_list': ['0', '1', '2']
             },
             'enterprises': ['B2W', 'Sieve'],
             'author': '@diogommartins'
@@ -53,7 +53,8 @@ class PathDictTests(unittest.TestCase):
         self.assertEqual(self.path_dict, {
             'dogs': {
                 'male': 'Xablau',
-                'female': 'Xena'
+                'female': 'Xena',
+                'nested_list': ['0', '1', '2']
             },
             'enterprises': ['B2W', 'Negro Drama'],
             'author': '@diogommartins'
@@ -63,7 +64,8 @@ class PathDictTests(unittest.TestCase):
         del self.path_dict['dogs.female']
         self.assertEqual(self.path_dict, {
             'dogs': {
-                'male': 'Xablau'
+                'male': 'Xablau',
+                'nested_list': ['0', '1', '2']
             },
             'enterprises': ['B2W', 'Sieve'],
             'author': '@diogommartins'
