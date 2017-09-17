@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/diogommartins/simple_json_logger.svg?branch=master)](https://travis-ci.org/diogommartins/pathdict)
 [![codecov](https://codecov.io/gh/diogommartins/simple_json_logger/branch/master/graph/badge.svg)](https://codecov.io/gh/diogommartins/pathdict)
 
-Extended dict with the capability of accessing nested itens using a path notation.
+Extended dict with the capability of accessing and manipulating nested itens 
+using a path notation.
 
 ## Installation
 
@@ -61,7 +62,7 @@ print(path_dict['mammalia.ferae.carnivora.3'])
 >>> 'ursidae'
 ```
 
-Everything else you do with a normal python `dict` will work.
+Everything you do with a normal python `dict` will work.
 
 ## Customization
 
