@@ -55,6 +55,8 @@ class PathDict(UserDict):
             return self.__setpath__(key, value)
         if isinstance(value, list):
             value = StringIndexableList(value)
+        elif isinstance(value, dict):
+            value = PathDict(value)
         return super().__setitem__(key, value)
 
     def __delitem__(self, key):
