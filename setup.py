@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 
 
 setup(name='pathdict',
@@ -10,4 +10,5 @@ setup(name='pathdict',
       url='https://github.com/diogommartins/pathdict',
       author='Diogo Magalhães Martins',
       author_email='magalhaesmartins@icloud.com',
-      keywords='collection dictionary dict path dotted')
+      keywords='collection dictionary dict path dotted',
+      long_description_markdown_filename='README.md')
