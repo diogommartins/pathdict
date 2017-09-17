@@ -62,6 +62,9 @@ Everything else you do with a normal python `dict` will work.
 
 ## Customization
 
+[![Build Status](https://travis-ci.org/diogommartins/simple_json_logger.svg?branch=master)](https://travis-ci.org/diogommartins/pathdict)
+[![codecov](https://codecov.io/gh/diogommartins/simple_json_logger/branch/master/graph/badge.svg)](https://codecov.io/gh/diogommartins/pathdict)
+
 The default `separator` is `.` but you can change it using the `separator` kwarg.
 
 ```python
