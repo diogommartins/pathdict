@@ -82,3 +82,29 @@ class PathDictTests(unittest.TestCase):
 
         self.path_dict.separator = '|'
         self.assertEqual(self.path_dict['dogs|male'], 'Xablau')
+
+    def test_set_to_invalid_path_raises_keyerror(self):
+        with self.assertRaises(KeyError):
+            self.path_dict['the.answer.to.all.problems'] = 42
+
+
+class CreateIfNotExistsParameterTests(unittest.TestCase):
+    def test_delete_on_invalid_path_raises_keyerror(self):
+        path_dict = PathDict(create_if_not_exists=True)
+
+        with self.assertRaises(KeyError):
+            del path_dict['dogs.male']
+        with self.assertRaises(KeyError):
+            del path_dict['Xablau']
+
+    def test_it_creates_nested_items_if_path_is_invalid(self):
+        path_dict = PathDict(create_if_not_exists=True)
+        path_dict['rio.de.janeiro'] = 'Xablau'
+
+        self.assertEqual(path_dict, {
+            'rio': {
+                'de': {
+                    'janeiro': 'Xablau'
+                }
+            }
+        })
