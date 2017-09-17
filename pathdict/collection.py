@@ -15,7 +15,8 @@ class StringIndexableList(UserList):
 
 class PathDict(UserDict):
     def __init__(self, *args, **kwargs):
-        self.separator = kwargs.get('separator', '.')
+        self.separator = kwargs.pop('separator', '.')
+        self.create_if_not_exists = kwargs.pop('create_if_not_exists', False)
         super().__init__(*args, **kwargs)
 
     def is_path(self, item) -> bool:
@@ -34,7 +35,15 @@ class PathDict(UserDict):
         previous_item = None
         for item in path.split(self.separator):
             previous_item = current_item
-            current_item = current_item[item]
+            try:
+                current_item = current_item[item]
+            except KeyError:
+                if not self.create_if_not_exists:
+                    raise
+                current_item[item] = PathDict(
+                    separator=self.separator,
+                    create_if_not_exists=self.create_if_not_exists)
+                current_item = current_item[item]
         previous_item[item] = value
 
     def __delpath__(self, path: str):
@@ -56,7 +65,9 @@ class PathDict(UserDict):
         if isinstance(value, list):
             value = StringIndexableList(value)
         elif isinstance(value, dict):
-            value = PathDict(value)
+            value = PathDict(value,
+                             separator=self.separator,
+                             create_if_not_exists=self.create_if_not_exists)
         return super().__setitem__(key, value)
 
     def __delitem__(self, key):
