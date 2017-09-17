@@ -68,3 +68,10 @@ class PathDictTests(unittest.TestCase):
         self.assertFalse(self.path_dict.is_path(666))
         self.assertFalse(self.path_dict.is_path((123, 321)))
         self.assertFalse(self.path_dict.is_path(('dogs', 'male')))
+
+    def test_separator_can_be_changed(self):
+        self.path_dict.separator = '/'
+        self.assertEqual(self.path_dict['dogs/male'], 'Xablau')
+
+        self.path_dict.separator = '|'
+        self.assertEqual(self.path_dict['dogs|male'], 'Xablau')
