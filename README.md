@@ -94,3 +94,16 @@ print(path_dict['mammalia/ferae/carnivora/3'])
 >>> 'ursidae'
 ```
 
+It is possible to let `PathDict` generate the steps to a given path:
+
+```python
+from pathdict import PathDict
+
+
+path_dict = PathDict(create_if_not_exists=True)
+path_dict['the.answer.to.all.problems'] = 42
+
+print(path_dict)
+>>> {'the': {'answer': {'to': {'all': {'problems': 42}}}}}
+
+```
