@@ -22,6 +22,7 @@ class PathDict(UserDict):
     def __init__(self, *args, **kwargs):
         self.separator = kwargs.pop('separator', '.')
         self.create_if_not_exists = kwargs.pop('create_if_not_exists', False)
+        self.list_class = kwargs.pop('list_class', StringIndexableList)
         super().__init__(*args, **kwargs)
 
     def is_path(self, item) -> bool:
@@ -68,11 +69,12 @@ class PathDict(UserDict):
         if self.is_path(key):
             return self.__setpath__(key, value)
         if isinstance(value, list):
-            value = StringIndexableList(value)
+            value = self.list_class(value)
         elif isinstance(value, dict):
             value = PathDict(value,
                              separator=self.separator,
-                             create_if_not_exists=self.create_if_not_exists)
+                             create_if_not_exists=self.create_if_not_exists,
+                             list_class=self.list_class)
         return super().__setitem__(key, value)
 
     def __delitem__(self, key):
