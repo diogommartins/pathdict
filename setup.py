@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
 
-
-VERSION = '0.0.4'
+VERSION = '0.0.6'
 
 
 setup(name='pathdict',
       version=VERSION,
       packages=find_packages(exclude=['*test*']),
       url='https://github.com/diogommartins/pathdict',
-      author='Diogo Magalhães Martins',
+      author='Diogo Magalhaes Martins',
       author_email='magalhaesmartins@icloud.com',
       keywords='collection dictionary dict path dotted',
-      long_description_markdown_filename='README.md')
+      # Generated with: pandoc --from=markdown --to=rst --output=README.rst README.md
+      long_description='README.rst')
