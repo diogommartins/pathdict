@@ -1,5 +1,6 @@
 import unittest
 from pathdict import PathDict
+from pathdict.collection import StringIndexableList
 
 
 class PathDictTests(unittest.TestCase):
@@ -108,3 +109,36 @@ class CreateIfNotExistsParameterTests(unittest.TestCase):
                 }
             }
         })
+
+
+class StringIndexableListTests(unittest.TestCase):
+    def setUp(self):
+        self.sil = StringIndexableList(["Xablau", "Xena"])
+
+    def test_it_deletes_items_by_string_value(self):
+        del self.sil['0']
+        self.assertEqual(self.sil, ["Xena"])
+
+    def test_it_deletes_items_by_integer_value(self):
+        del self.sil[0]
+        self.assertEqual(self.sil, ["Xena"])
+
+    def test_it_gets_items_by_string_value(self):
+        self.assertEqual(self.sil['0'], "Xablau")
+        self.assertEqual(self.sil['1'], "Xena")
+
+    def test_it_gets_items_by_int_value(self):
+        self.assertEqual(self.sil[0], "Xablau")
+        self.assertEqual(self.sil[1], "Xena")
+
+    def test_it_sets_items_by_string_value(self):
+        self.sil['0'] = "Xena"
+        self.sil['1'] = "Xablau"
+
+        self.assertEqual(self.sil, ["Xena", "Xablau"])
+
+    def test_it_sets_items_by_string_value(self):
+        self.sil[0] = "Xena"
+        self.sil[1] = "Xablau"
+
+        self.assertEqual(self.sil, ["Xena", "Xablau"])

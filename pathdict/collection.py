@@ -12,6 +12,11 @@ class StringIndexableList(UserList):
             key = int(key)
         return super().__setitem__(key, value)
 
+    def __delitem__(self, key):
+        if isinstance(key, str):
+            key = int(key)
+        return super(StringIndexableList, self).__delitem__(key)
+
 
 class PathDict(UserDict):
     def __init__(self, *args, **kwargs):
