@@ -101,7 +101,7 @@ class PathDictTests(unittest.TestCase):
         value = [1, 1, 2, 3, 5]
         self.path_dict['foo'] = value
 
-        self.assertEqual(self.path_dict['foo'], value)
+        self.assertEqual(self.path_dict['foo'], tuple(value))
         self.assertIsInstance(self.path_dict['foo'], tuple)
 
     def test_list_class_is_passed_to_embeded_pathdicts(self):
