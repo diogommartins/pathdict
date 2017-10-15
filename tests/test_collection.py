@@ -88,6 +88,32 @@ class PathDictTests(unittest.TestCase):
         with self.assertRaises(KeyError):
             self.path_dict['the.answer.to.all.problems'] = 42
 
+    def test_it_typecasts_list_values_to_stringindexablelist_by_default(self):
+        value = [1, 1, 2, 3, 5]
+        self.path_dict['foo'] = value
+
+        self.assertEqual(self.path_dict['foo'], value)
+        self.assertIsInstance(self.path_dict['foo'], StringIndexableList)
+
+    def test_list_class_can_be_changed(self):
+        self.path_dict.list_class = tuple
+
+        value = [1, 1, 2, 3, 5]
+        self.path_dict['foo'] = value
+
+        self.assertEqual(self.path_dict['foo'], value)
+        self.assertIsInstance(self.path_dict['foo'], tuple)
+
+    def test_list_class_is_passed_to_embeded_pathdicts(self):
+        self.path_dict.list_class = tuple
+        self.path_dict['foo'] = {
+            'dog': 'Xablau',
+            'siblings': ['Xena']
+        }
+
+        self.assertEqual(self.path_dict['foo'].list_class, tuple)
+        self.assertIsInstance(self.path_dict['foo.siblings'], tuple)
+
 
 class CreateIfNotExistsParameterTests(unittest.TestCase):
     def test_delete_on_invalid_path_raises_keyerror(self):

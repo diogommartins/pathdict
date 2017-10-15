@@ -107,3 +107,30 @@ print(path_dict)
 >>> {'the': {'answer': {'to': {'all': {'problems': 42}}}}}
 
 ```
+
+By default, list values inside a `PathDict` are type casted to a 
+`pathdict.collection.StringIndexableList`. You can change that behavior with the
+`list_class` keyword argument. Beware that if the `list_class` class doesn't 
+implement the StringIndexableList Protocol, pathdict's lists path will fail.  
+
+```python
+from pathdict import PathDict
+
+
+path_dict = PathDict()
+
+path_dict["list"] = [1, 2, 3]
+type(path_dict["list"])
+>>> pathdict.collection.StringIndexableList
+
+path_dict["list.1"]
+>>> 2
+
+custom_path_dict = PathDict(list_class=list)
+type(custom_path_dict["list"])
+>>> list
+
+custom_path_dict["list.1"]
+>>> TypeError: list indices must be integers or slices, not str
+
+``` 
