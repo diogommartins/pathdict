@@ -136,6 +136,12 @@ class CreateIfNotExistsParameterTests(unittest.TestCase):
             }
         })
 
+    def test_it_creates_nested_list_items_if_path_is_invalid(self):
+        path_dict = PathDict({'letters': ['a', 'b']}, create_if_not_exists=True)
+        path_dict['letters.2'] = 'c'
+
+        self.assertEqual(path_dict['letters'], ['a', 'b', 'c'])
+
 
 class StringIndexableListTests(unittest.TestCase):
     def setUp(self):

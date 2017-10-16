@@ -108,6 +108,22 @@ print(path_dict)
 
 ```
 
+Which also works for nested list fields:
+
+```python
+
+from pathdict import PathDict
+
+
+path_dict = PathDict(create_if_not_exists=True)
+path_dict['some.letters'] = ['a', 'b']
+
+path_dict['some.letters.2'] = 'c'
+
+print(path_dict)
+>>> {'some': {'letters': ['a', 'b', 'c']}}
+```
+
 By default, list values inside a `PathDict` are type casted to a 
 `pathdict.collection.StringIndexableList`. You can change that behavior with the
 `list_class` keyword argument. Beware that if the `list_class` class doesn't 
