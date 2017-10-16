@@ -50,6 +50,10 @@ class PathDict(UserDict):
                     separator=self.separator,
                     create_if_not_exists=self.create_if_not_exists)
                 current_item = current_item[item]
+            except IndexError:
+                if not self.create_if_not_exists:
+                    raise
+                current_item.insert(int(item), value)
         previous_item[item] = value
 
     def __delpath__(self, path: str):
