@@ -114,6 +114,22 @@ class PathDictTests(unittest.TestCase):
         self.assertEqual(self.path_dict['foo'].list_class, tuple)
         self.assertIsInstance(self.path_dict['foo.siblings'], tuple)
 
+    def test_flatten_returns_a_single_level_dict(self):
+        flat_dict = self.path_dict.flatten()
+        self.assertEqual(
+            flat_dict,
+            {
+                'dogs.male': 'Xablau',
+                'dogs.female': 'Xena',
+                'dogs.nested_list.0': '0',
+                'dogs.nested_list.1': '1',
+                'dogs.nested_list.2': '2',
+                'enterprises.0': 'B2W',
+                'enterprises.1': 'Sieve',
+                'author': '@diogommartins'
+            }
+        )
+
 
 class CreateIfNotExistsParameterTests(unittest.TestCase):
     def test_delete_on_invalid_path_raises_keyerror(self):

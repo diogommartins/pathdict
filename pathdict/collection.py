@@ -1,4 +1,4 @@
-from collections import UserDict, UserList
+from collections import UserDict, UserList, Mapping
 
 
 class StringIndexableList(UserList):
@@ -85,3 +85,23 @@ class PathDict(UserDict):
         if self.is_path(key):
             return self.__delpath__(key)
         return super().__delitem__(key)
+
+    def flatten(self) -> dict:
+        stack = list(self.items())
+        current_path = []
+        flat_dict = {}
+        while stack:
+            k, v = stack.pop()
+            current_path.append(k)
+            if isinstance(v, Mapping):
+                stack.extend(v.items())
+            elif isinstance(v, self.list_class):
+                full_path = ".".join(current_path)
+                for i, item in enumerate(v):
+                    flat_dict[f'{full_path}.{i}'] = item
+                current_path.pop(-1)
+            else:
+                full_path = ".".join(current_path)
+                current_path.pop(-1)
+                flat_dict[full_path] = v
+        return flat_dict
